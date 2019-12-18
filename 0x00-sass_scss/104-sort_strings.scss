@@ -1,0 +1,49 @@
+/* list to sort */
+@import '104-sort_list';
+
+// charter ordered by its ascii value
+@import '104-default-order';
+
+@function swap($list, $index-a, $index-b) {
+    $tmp: nth($list, $index-a);
+    $list: set-nth($list, $index-a, nth($list, $index-b));
+    $list: set-nth($list, $index-b, $tmp);
+    @return $list;
+}
+
+// helper function to compare two charaters
+@function _str-compare($str-a, $str-b, $order) {
+    $str-a: to-lower-case($str-a + unquote(""));
+    $str-b: to-lower-case($str-b + unquote(""));
+    @for $i from 1 through min(str-length($str-a), str-length($str-b)) {
+        $char-a: str-slice($str-a, $i, $i);
+	$char-b: str-slice($str-b, $i, $i);
+	@if $char-a and not $char-b {
+	    @return true;
+	} @else if not $char-a and $char-b {
+	    @return false;
+	} @else if not $char-a and not $char-b {
+	    @return false;
+	} @else if index($order, $char-a) != index($order, $char-b) {
+	    @return index($order, $char-a) > index($order, $char-b);
+	}
+    }
+}
+
+@function sort($list, $order: $default-order) {
+    @for $i from 1 to length($list) {
+        @for $j from 1 through length($list) - $i {
+
+        // Compare both values
+            @if _str-compare(nth($list, $j), nth($list, $j + 1), $order) {
+	// If the item should go before the other, swap them
+	       $list: swap($list, $j, $j + 1);
+	       }
+	  }
+	}
+
+  // Return the sorted list
+    @return $list;
+}
+
+@debug sort($list_to_sort);

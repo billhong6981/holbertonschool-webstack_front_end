@@ -1,0 +1,12 @@
+/* nested tag style */
+$pad-0: 0px;
+$pad-10: 10px;
+body {
+     margin: $pad-0;
+     padding: $pad-0;
+
+     p {
+       margin: $pad-10;
+       }
+    }
+    

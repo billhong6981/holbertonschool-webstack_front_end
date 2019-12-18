@@ -1,0 +1,23 @@
+/* more media query */
+$list-1: 960, 640, 320;
+$list-2: 18px, 16px, 14px;
+
+@mixin display($screen-width, $font-size) {
+       @media screen and (max-width: #{$screen-width}px) {
+       	      & {
+		   font-size: $font-size;
+		   @if $screen-width == 320 {
+		       &.small {
+		       	       color: #1D1D1D;
+		       }
+		   }
+		 }
+       }
+}
+
+h1 {
+   font-size: 20px;
+   @for $n from 1 to 4 {
+   	@include display(nth($list-1, $n), nth($list-2, $n));
+   }
+}

@@ -1,0 +1,10 @@
+/* at-rule: @for */
+@mixin header($i) {
+       h#{$i} {
+       	      font-size: #{$i}px;
+       }
+}
+
+@for $i from 1 through 5 {
+     @include header($i);
+}
